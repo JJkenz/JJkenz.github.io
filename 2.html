@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="styles.css" rel="stylesheet"> 
+  <title>Valentine's Question </title>
+ <style>
+    body {
+      height: 94.7vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('BG4.jpg');
+      background-size:cover;
+      font-family: Arial, sans-serif;
+      border:25px solid white;
+      overflow:hidden;
+    }
+
+    h1 {
+      font-size:45px;
+      color: black;
+      font-family:papyrus;
+    }
+
+    h2 {
+      font-size:20px;
+      color: black;
+      font-family:papyrus;
+      line-height: 1.65;
+    }
+
+    .card {
+      background: white;
+      padding: 100px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 1000px; /* Use max-width for better flexibility on smaller screens */
+      /* Remove fixed height to allow the box to grow with the content */
+      /* height: 550px; */
+      max-width: 90%; /* Ensures the card doesn't touch screen edges on large screens */
+      box-sizing: border-box; /* Ensures padding is included in the width calculation */
+    }
+    button {
+      top: 82%;
+      left: 68.5%;
+      padding: 20px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 45px;
+      position:absolute;
+    }
+
+    #click {
+      background: #ff4d6d;
+      color: white;
+    }
+     .petals-container {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through */
+    overflow: hidden; /* Keeps petals within the viewport */
+    z-index: -1; /* Puts petals behind other content */
+}
+
+.petal {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff6c87; /* Light pink color */
+    border-radius: 150% 0 150% 50%;
+    animation: fall linear infinite;
+    /* Randomize start position and duration */
+    left: calc(var(--random-x) * 1vw); 
+    animation-duration: calc(var(--random-duration) * 1s);
+    animation-delay: var(--random-delay); 
+    opacity: calc(var(--random-opacity));
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+       transform: translateY(50vh) translateX(50px) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(720deg); /* Fall from top to bottom */
+        opacity: 0.5;
+    }
+}
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="button">
+      <a href="3.html">
+        <button id="click">-></button>
+      </a>
+        <h1> <b> Happy advanced valentines day! </b> </h1>
+<h2>Alam kong busy dahil nga sa work immers o sa iba pang bagay, pero kahit papaano magpahinga at maglaan parin ng oras para sa sarili. Lately, lumalakas na loob ko sa'yo (?) HSHAHSAHHA accomplishment ko yun, and I know tutuloy to ng tutuloy hanggang sa katapusan ng sy.<br> <br>
+  Thank you so much for making my days brighter, kahit simpleng message lang natin sa isa't isa napapangiti naman nako. Sorry kung corny pero thank you rin na isa kana sa motibasyon ko para mag aral ng mas maayos (Gusto ko kasi maasar ka tuwing mas mataas score ko HAHGHAHGAH), lalo na't alam kong supporta ka sakin sobra na maabot yung pangarap kong maging architect. Gagalingan ko po(◜ᴗ◝). syempre kapalit sa supporta mo, supporta rin ako ng sobra sa kung anuman nais mong makamit sa buhay ദ്ദി・ᴗ・)✧.
+   <br> <br> unfortunately sa feb 14 meron kaming architectural practice sa TIP QC for the whole day (˙◠˙), nakagawa nako ng plano lahat lahat kaso nakalimutan ko nag apply pala ako dun matagal na. I hope you understand, pangako kong ilabas ka sa susunod nalang. above all things na sinabi ko, may isa lang naman akong nais itanong: 
+</h2>
+    </div>
+  </div>
+</div>
+<div class="petals-container">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    
+    <audio id="loadSound" src="Someday.mp3" preload="auto" loop></audio>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.petals-container');
+    const numberOfPetals = 100; 
+    for (let i = 0; i < numberOfPetals; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.style.setProperty('--random-x', Math.random() * 100);
+        petal.style.setProperty('--random-duration', Math.random() * 10 + 5); 
+        petal.style.setProperty('--random-opacity', Math.random() * 0.5 + 0.5); 
+        petal.style.setProperty('--random-delay',Math.random() * -10 + 0.5);
+        container.appendChild(petal);
+    }
+});   
+  window.addEventListener('DOMContentLoaded', () => {
+  const sound = document.getElementById('loadSound');
+  
+  sound.volume = 0.25; 
+  
+  // 2. Try to play immediately
+  sound.play().catch(error => {
+    console.log("Autoplay blocked. Waiting for user click...");
+    
+    // 3. Fallback: play on first click if blocked
+    document.body.addEventListener('click', () => {
+      sound.play();
+    }, { once: true });
+  });
+});
+
+</script>
+</body>
+</html>

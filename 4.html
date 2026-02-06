@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="styles.css" rel="stylesheet"> 
+  <title>Valentine's Question </title>
+  <style>
+    body {
+      height: 94.7vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('BG4.jpg');
+      background-size:cover;
+      font-family: Arial, sans-serif;
+      border:25px solid white
+    }
+
+    h1 {
+      font-size:100px;
+      color: #C2675B;
+    }
+    .card {
+      background: white;
+      padding: 100px 75px 75px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 1000px;
+    }
+</style>
+</head>
+<body>
+  <script src="./confetti.js"></script>
+  <script>
+    const start = () => {
+            setTimeout(function(){
+                confetti.start();
+              },1);
+          };
+
+    const stop = () => {
+            setTimeout(function() {
+                confetti.stop();
+              },5000);
+}
+start();
+stop();
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const sound = document.getElementById('loadSound');
+    
+    // Play the sound immediately when the page finishes loading
+    sound.play().catch(error => {
+      console.log("Autoplay was prevented. Clicking anywhere on the page will play it.");
+      
+      // Fallback: If the browser still blocks it, play on the first click
+      document.body.addEventListener('click', () => {
+        sound.play();
+      }, { once: true });
+    });
+  });
+</script>
+  <div class="card">
+    <audio id="loadSound" src="Yes.mp3" preload="auto"></audio>
+  <h1> Yehey! </h1>
+</div>
+</body>
+</html>

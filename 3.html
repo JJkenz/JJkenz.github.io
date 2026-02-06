@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="styles.css" rel="stylesheet"> 
+  <title>Valentine's Question </title>
+  <style>
+    body {
+      height: 94.7vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-image: url('BG4.jpg');
+      background-size:cover;
+      font-family: Arial, sans-serif;
+       border:25px solid white;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+  h1 {
+      color: #ff4d6d;
+      font-size:50px;
+    }
+
+
+   button {
+    margin-top: 5px;
+      padding: 20px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 45px;
+      position:relative;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background: #ccc;
+      position: relative;
+    }
+
+    .petals-container {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through */
+    overflow: hidden; /* Keeps petals within the viewport */
+    z-index: -1; /* Puts petals behind other content */
+}
+
+.petal {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff6c87; /* Light pink color */
+    border-radius: 150% 0 150% 50%;
+    animation: fall linear infinite;
+    /* Randomize start position and duration */
+    left: calc(var(--random-x) * 1vw); 
+    animation-duration: calc(var(--random-duration) * 1s);
+    animation-delay: var(--random-delay); 
+    opacity: calc(var(--random-opacity));
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+       transform: translateY(50vh) translateX(50px) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(720deg); /* Fall from top to bottom */
+        opacity: 0.5;
+    }
+}
+  </style>
+</head>
+<body>
+  <div class="petals-container">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+</div>
+  <div class="card">
+    <h1>Anika, will you be my valentine?</h1>
+  </div>
+
+  <div class="button">
+    <a href="4.html">
+    <button id="yes">Yes</button>
+  </a>
+    <button id="no">No</button>
+  </div>
+  <audio id="loadSound" src="Dalangin.mp3" preload="auto" loop></audio>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Petal generation code (moved inside this listener) ---
+        const container = document.querySelector('.petals-container');
+        const numberOfPetals = 100; 
+        for (let i = 0; i < numberOfPetals; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.setProperty('--random-x', Math.random() * 100);
+            petal.style.setProperty('--random-duration', Math.random() * 10 + 5); 
+            petal.style.setProperty('--random-opacity', Math.random() * 0.5 + 0.5); 
+            const randomDelay = Math.random() * -20;
+            petal.style.setProperty('--random-delay',Math.random() * -20 + 0);
+            container.appendChild(petal);
+        }
+
+        // --- Audio playback code (moved inside this listener) ---
+        const sound = document.getElementById('loadSound');
+        sound.volume = 0.25; 
+        
+        // Try to play immediately (will likely fail on first load)
+        sound.play().catch(error => {
+            console.log("Autoplay blocked. Waiting for user click...");
+        });
+
+        // Fallback: play on *any* body click if blocked initially
+        document.body.addEventListener('click', () => {
+            // Check if audio is paused/stopped before trying to play again
+            if (sound.paused) {
+               sound.play(); 
+            }
+        }, { once: true });
+        
+        // --- Button logic code (moved inside this listener) ---
+        const noBtn = document.getElementById("no");
+        const yesBtn = document.getElementById("yes");
+        const noTexts = ["Sure?", "Legit ba?", "IHHH", "going once?", "going twice?", "SURE KA TALAGA??", "Last na to, SURE NO?", "fine, pindutin mo ulit", "legit nga, no talaga??", "serious naaa", "Are you sure", "no yes?", "luhh", "fine", "No"];
+        let clickCount = 0;
+        let hoverEnabled = false;
+
+        noBtn.addEventListener("click", () => {
+            if (!hoverEnabled && clickCount < noTexts.length) {
+                noBtn.textContent = noTexts[clickCount]; 
+                clickCount++;
+
+                let scale = 1 + 0.75 * clickCount;
+                yesBtn.style.transform = `scale(${scale})`;
+            
+                if (clickCount === noTexts.length) {
+                    hoverEnabled = true;
+                    noBtn.style.cursor = "pointer"; 
+                    
+                    noBtn.addEventListener("click", () => {
+                        window.location.href = "5.html"; 
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
