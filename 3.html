@@ -161,7 +161,7 @@
                 noBtn.textContent = noTexts[clickCount]; 
                 clickCount++;
 
-                let scale = 1 + 0.75 * clickCount;
+                let scale = 1 + 0.25 * clickCount;
                 yesBtn.style.transform = `scale(${scale})`;
             
                 if (clickCount === noTexts.length) {
@@ -178,4 +178,5 @@
 </script>
 
 </body>
+
 </html>
